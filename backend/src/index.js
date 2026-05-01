@@ -5,6 +5,9 @@ const cors = require('cors');
 const connectRoute = require('./routes/connect');
 const callbackRoute = require('./routes/callback');
 const contactsRoute = require('./routes/contacts');
+const chatRoute = require('./routes/chat');
+const healthRoute = require('./routes/health');
+const statusRoute = require('./routes/status');
 
 const app = express();
 
@@ -28,6 +31,9 @@ app.use((req, res, next) => {
 app.use('/connect', connectRoute);
 app.use('/callback', callbackRoute);
 app.use('/contacts', contactsRoute);
+app.use('/chat', chatRoute);
+app.use('/health', healthRoute);
+app.use('/status', statusRoute);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
