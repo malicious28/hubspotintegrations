@@ -17,9 +17,10 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   const start = Date.now();
+  const route = req.originalUrl.split('?')[0];
   res.on('finish', () => {
     process.stdout.write(JSON.stringify({
-      route: req.path,
+      route,
       method: req.method,
       status: res.statusCode,
       partnerStatus: res.getHeader('X-Partner-Status') || null,
