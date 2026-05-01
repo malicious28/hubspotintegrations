@@ -38,6 +38,7 @@ router.get('/', async (req, res) => {
       }
     }
 
+    res.set('X-Partner-Status', data._partnerStatus || 200);
     res.json({ contacts: data.results, pagination: data.paging || null });
   } catch (err) {
     if (err.status === 429) return res.status(429).json({ error: 'RATE_LIMITED' });

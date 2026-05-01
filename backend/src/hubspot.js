@@ -48,11 +48,13 @@ async function getContacts(accessToken, after) {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
 
-  if (res.status === 401) throw { status: 401, code: 'UNAUTHORIZED' };
-  if (res.status === 429) throw { status: 429, code: 'RATE_LIMITED' };
-  if (!res.ok) throw { status: res.status, code: 'HUBSPOT_ERROR' };
+  if (res.status === 401) throw { status: 401, code: 'UNAUTHORIZED', partnerStatus: 401 };
+  if (res.status === 429) throw { status: 429, code: 'RATE_LIMITED', partnerStatus: 429 };
+  if (!res.ok) throw { status: res.status, code: 'HUBSPOT_ERROR', partnerStatus: res.status };
 
-  return res.json();
+  const data = await res.json();
+  data._partnerStatus = res.status;
+  return data;
 }
 
 module.exports = { exchangeCode, refreshAccessToken, getContacts };

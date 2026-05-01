@@ -184,6 +184,18 @@ export default function App() {
               {loading ? 'Fetching…' : 'Get Contacts'}
             </button>
             {connectionId && (
+              <button className="action-btn" onClick={async () => {
+                await fetch(`${API}/debug/expire`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ connectionId }),
+                });
+                setTokenStatus(prev => prev ? { ...prev, expired: true, expiresAt: 0 } : prev);
+              }} style={{ ...outlineBtn(), color: '#DC2626', borderColor: '#FECACA', fontSize: '0.8rem' }}>
+                Expire Token
+              </button>
+            )}
+            {connectionId && (
               <span style={{ marginLeft: 'auto', fontSize: '0.72rem', color: '#9CA3AF', fontFamily: 'monospace' }}>
                 {connectionId.slice(0, 8)}…
               </span>

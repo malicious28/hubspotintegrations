@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
   const tokens = getTokens(connectionId);
   if (!tokens) return res.json({ connected: false });
 
+  res.set('Cache-Control', 'no-store');
   res.json({
     connected: true,
     expiresAt: tokens.expiresAt,

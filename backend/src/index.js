@@ -8,6 +8,7 @@ const contactsRoute = require('./routes/contacts');
 const chatRoute = require('./routes/chat');
 const healthRoute = require('./routes/health');
 const statusRoute = require('./routes/status');
+const debugRoute = require('./routes/debug');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
       route: req.path,
       method: req.method,
       status: res.statusCode,
+      partnerStatus: res.getHeader('X-Partner-Status') || null,
       latency: Date.now() - start,
       ts: new Date().toISOString(),
     }) + '\n');
@@ -34,6 +36,7 @@ app.use('/contacts', contactsRoute);
 app.use('/chat', chatRoute);
 app.use('/health', healthRoute);
 app.use('/status', statusRoute);
+app.use('/debug', debugRoute);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
