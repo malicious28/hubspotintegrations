@@ -79,4 +79,4 @@ When an access token expires, concurrent requests to `/contacts` could each trig
 
 ## Notes
 
-Built in approximately 3–4 hours. If this were day one on the job, the first thing I'd ship is persistent token storage — an in-memory store works for demos but loses all connections on every deploy, which would be a critical failure in any production environment.
+I completed this project within the 3-day deadline. If given one more day, I'd turn the chat UI I've already built into the interface into a fully working HubSpot assistant — one that answers questions like "which contacts haven't been contacted in 30 days?" using the connected account's live data. The backend would use the same token-refresh layer already in place to fetch HubSpot data and pass it to a language model. The foundation is already there; it just needs the data-fetching and prompt layer on top.
